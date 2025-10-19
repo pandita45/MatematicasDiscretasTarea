@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "struct.h"
+#include "cola.c"
 
 Grafo crearGrafo(){
   FILE* p = fopen("grafo1.txt", "r");
@@ -29,50 +30,25 @@ Grafo crearGrafo(){
   return grafo;
 }
 
-cola *crearCola(int largo){
-  cola *cola = malloc(sizeof(cola));
-  char *colaArray = malloc(largo * sizeof(char));
-  cola->cola = colaArray;
-  cola->frente = 0;
-  cola->atras = 0;
-  return cola;
-}
-
-char pop(cola *queue){
-  char *cola = queue->cola;
-  char item = cola[queue->frente];
-  queue->frente++;
-  return item;
-}
-
-char push(cola *queue, char vertice){
-  char *cola = queue->cola;
-  cola[queue->atras] = vertice;
-  queue->atras++;
-  return vertice;
-}
 
 int main(){
-  cola *cola = crearCola(3);
-  /*char verticeUno = 'A';
-  char verticeDos = 'B';
-  char verticeTre = 'C';
-  push(cola, verticeUno);
-  push(cola, verticeDos);
-  push(cola, verticeTre);
-  char *vertices = {verticeUno, verticeDos, verticeTre};
-  */
+  Cola *cola = crearCola();
+  push(cola, 'a');
+  push(cola, 'b');
+  push(cola, 'c');
+  push(cola, 'd');
+  push(cola, 'e');
+  push(cola, 'f');
+  push(cola, 'g');
   //char **matriz = {{0, 1, 1},
   //                 {1, 0, 1},
   //                 {1, 1, 0}};
   //Grafo grafo = crearGrafo(numV, vertices,matriz);
 
-  int a = sizeof(cola);
-
-  for (int i = 0; i < 3; i++)
+  for (int i = 0; i < 7; i++)
   {
     printf("%c\n", pop(cola));
   }
-  printf("%d", a);
+  destruirCola(cola);
 }
 
