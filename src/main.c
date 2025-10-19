@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/struct.h"
-
-
+#include "struct.h"
 
 Grafo crearGrafo(){
   FILE* p = fopen("grafo1.txt", "r");
