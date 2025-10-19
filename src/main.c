@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "struct.h"
-#include "cola.c"
+#include "cola.h"
 
 Grafo crearGrafo(){
   FILE* p = fopen("grafo1.txt", "r");

@@ -26,10 +26,10 @@ char push(Cola *queue, char vertice) {
   Nodo *nuevoAtras = malloc(sizeof(Nodo));
   nuevoAtras->vertice = vertice;
   nuevoAtras->siguiente = NULL;
-  if(queue->atras != NULL){
+  if (queue->atras != NULL) {
     queue->atras->siguiente = nuevoAtras;
   }
-  if(queue->cabeza == NULL){
+  if (queue->cabeza == NULL) {
     queue->cabeza = nuevoAtras;
   }
   queue->atras = nuevoAtras;

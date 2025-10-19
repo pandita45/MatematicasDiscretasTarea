@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(MatematicasDiscretasTarea C)
+project(TareaMatematicasDiscretas C)
 
 # Use C99 standard (or change to C11 if you prefer)
 set(CMAKE_C_STANDARD 99)
