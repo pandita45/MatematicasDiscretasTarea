@@ -1,4 +1,6 @@
+
 #ifndef STRUCT_H
+#define STRUCT_H
 
 typedef struct {
   int numVertices;
@@ -23,8 +25,5 @@ typedef struct {
   cola nodoSiguiente; //hay que hacer la cola
 } Dijkstra;
 
-//ql que pasa si
-//guardamos la longitud del camino, Y el camino en distancias
-//STRUCT DE CAMINO GO
 
 #endif
