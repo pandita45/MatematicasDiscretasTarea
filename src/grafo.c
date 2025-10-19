@@ -57,18 +57,62 @@ int contV(char* vertices){
   
 }
   
-Grafo* crearGrafo(){
+char* devolverVertices(char* linea, int numV){
+  
+  char* finalVertices = malloc(sizeof(char) * numV);
+  int contador = 0;
+
+
+  for (int i = 0; i < strlen(linea); i++){
+    if (linea[i] != ','){
+      finalVertices[contador] = linea[i];
+      contador ++;
+    }
+  }
+  return finalVertices;
+}
+
+int indiceVertice (Grafo* grafo, char vertice){
+
+  for (int i = 0; i< grafo->numVertices; i++){
+
+    if(grafo->vertices[i] == vertice){
+      return i;
+    }
+  }
+  return -1;
+}
+
+char** crearMatrizAdjacencia (Grafo* grafo, char* aristas, int esGrafo){
+  char ** matrizAdjacencia = malloc(sizeof(char*) * grafo->numVertices);
+
+  for(int i = 0; i < grafo->numVertices; i++){
+    matrizAdjacencia[i] = malloc(sizeof(char) * grafo->numVertices);
+    for (int j = 0; j< grafo->numVertices; j++){
+      matrizAdjacencia[i][j] = 0;
+    }
+
+  } 
+  char* token = strtok(aristas, ",");
+  do{
+    int inicio = indiceVertice(grafo, token[0]);
+    int final  = indiceVertice(grafo, token[1]);
+    matrizAdjacencia[inicio][final] = 1;
+    if (esGrafo){
+      matrizAdjacencia[final][inicio] = 1;
+    }
+  }while(token = strtok(NULL, ","));
+  return matrizAdjacencia;
+}
+
+void crearGrafo(Grafo* grafo){
   char aristas[1024];
   char vertices[1024];
   leerGrafo(vertices,aristas);
   printf("%s\n",vertices);
   printf("%s\n",aristas);
   printf("%d\n",contV(vertices));
-  return NULL;
-  /*
-  Grafo grafo;
-    grafo.numVertices = numV;
-    grafo.vertices = nodos;
-    grafo.matrizAdjacencia = matriz;*/
-
+  grafo->numVertices = contV(vertices);
+  grafo->vertices = devolverVertices(vertices, contV(vertices));
+  grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo,aristas,1);
 }

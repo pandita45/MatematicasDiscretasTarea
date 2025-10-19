@@ -28,6 +28,7 @@ typedef struct {
   Recorrido* distancias;
   char* visitado; //se inicializa en 0
   Cola nodoSiguiente; //hay que hacer la cola
+  Grafo* grafo;
 } Dijkstra;
 
 

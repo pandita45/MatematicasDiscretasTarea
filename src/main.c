@@ -23,7 +23,14 @@ int main(){
   }
   destruirCola(cola);
   */
-  crearGrafo();
+  Grafo grafo;
+  crearGrafo(&grafo);
+  for(int i = 0; i< grafo.numVertices; i++){
+    for(int j = 0; j< grafo.numVertices; j++){
+      printf("%d    ", grafo.matrizAdjacencia[i][j]);
+    }
+    printf("\n");
+  }
   
 }
 
