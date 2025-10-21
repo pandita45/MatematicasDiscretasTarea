@@ -3,7 +3,7 @@
 
 #include "struct.h"
 
-Grafo* crearGrafo();
+Grafo* crearGrafo(int esGrafo);
 
 int indiceVertice(Grafo* grafo, char vertice);
 

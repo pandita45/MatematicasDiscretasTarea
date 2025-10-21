@@ -1,2 +1,2 @@
-V = {a,b,c,d,e,f,g,h,i,j,k,l}
-E = {ab,ac,bd,dh,di,ce,cf,cg,gl,fj,fk}
+  V = {a,   b,c,  d,e,f,g,h,i,j,k,l}
+E = {ab,ac, bd,dh,  di,ce,cf,cg,gl, fj,fk}

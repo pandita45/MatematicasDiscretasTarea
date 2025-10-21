@@ -62,7 +62,7 @@ char *devolverVertices(char *linea, int numV) {
   int contador = 0;
 
   for (int i = 0; i < strlen(linea); i++) {
-    if (linea[i] != ',') {
+    if (linea[i] != ',' && linea[i] != ' ') {
       finalVertices[contador] = linea[i];
       contador++;
     }
@@ -99,8 +99,10 @@ char **crearMatrizAdjacencia(Grafo *grafo, char *aristas, int esGrafo) {
   }
   char *token = strtok(aristas, ",");
   do {
-    int inicio = indiceVertice(grafo, token[0]);
-    int final = indiceVertice(grafo, token[1]);
+    char* parsed = token;
+    while (*parsed == ' ') parsed++;
+    int inicio = indiceVertice(grafo, parsed[0]);
+    int final = indiceVertice(grafo, parsed[1]);
     matrizAdjacencia[inicio][final] = 1;
     if (esGrafo) {
       matrizAdjacencia[final][inicio] = 1;
@@ -109,7 +111,7 @@ char **crearMatrizAdjacencia(Grafo *grafo, char *aristas, int esGrafo) {
   return matrizAdjacencia;
 }
 
-Grafo *crearGrafo() {
+Grafo *crearGrafo(int esGrafo) {
   Grafo *grafo = malloc(sizeof(Grafo));
   char aristas[1024];
   char vertices[1024];
@@ -119,7 +121,7 @@ Grafo *crearGrafo() {
   printf("%d\n", contV(vertices));
   grafo->numVertices = contV(vertices);
   grafo->vertices = devolverVertices(vertices, contV(vertices));
-  grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristas, 1);
+  grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristas, esGrafo);
   return grafo;
 }
 

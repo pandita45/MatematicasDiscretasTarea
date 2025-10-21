@@ -4,7 +4,7 @@
 #include "cola.h"
 #include <stdio.h>
 int main() {
-  Grafo *grafo = crearGrafo();
+  Grafo *grafo = crearGrafo(1);
   Cola *colaRecorridos = empezarDijkstra(grafo, 'a', 'e');
   Recorrido* recorrido;
   while ((recorrido = pop(colaRecorridos))) {
