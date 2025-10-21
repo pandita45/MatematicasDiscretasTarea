@@ -2,6 +2,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
+int input(){
+    int tipoGrafo;
+     printf("Elija el tipo de estructura a utilizar seleccionando el valor numerico correspondiente\n");
+     printf("1 - Grafo\n");
+     printf("2 - Digrafo\n");
+    do{
+      scanf("%d", &tipoGrafo);
+  
+      if(tipoGrafo != 1 && tipoGrafo != 2){
+	printf("Ingrese uno de los valores numericos correspondientes\n");
+      }
+    } while(tipoGrafo != 1 && tipoGrafo != 2);
+  return tipoGrafo;
+}
+
+void seleccionarVertices(char *inicio, char *final, Grafo *grafo){
+  char auxInicio;
+  char auxFinal;
+  int valido = 0 ;
+  printf("Seleccione uno de los vertices de inicio disponibles:\n");
+  for(int i = 0; i<grafo->numVertices; i++){
+    printf("%c ", grafo->vertices[i]);
+  }
+  printf("\n");
+  while(1){
+    valido = 0;
+    scanf(" %c",&auxInicio);
+    for(int i = 0; i<grafo->numVertices; i++){
+      if(auxInicio == grafo->vertices[i]){
+	valido = 1;
+	break;
+      }
+    }
+    if(valido){
+      *inicio = auxInicio;
+      break;
+    }
+    else{
+      printf("Ingrese un vertice valido\n");
+    }
+  }
+  printf("Seleccione uno de los vertices de destino disponibles:\n");
+  for(int i = 0; i<grafo->numVertices; i++){
+    printf("%c ", grafo->vertices[i]);
+  }
+  printf("\n");
+  
+  while(1){
+    valido = 0;
+    scanf(" %c",&auxFinal);
+    for(int i = 0; i<grafo->numVertices; i++){
+      if(auxFinal == grafo->vertices[i]){
+	valido = 1;
+	break;
+      }
+    }
+    if(valido){
+      *final = auxFinal;
+      break;
+    }
+    else{
+      printf("Ingrese un vertice valido\n");
+    }
+  
+  }
+  
+}
+
+  
 
 void leerGrafo(char *source, char *dest) {
   char linea[1024];
@@ -116,9 +186,6 @@ Grafo *crearGrafo(int esGrafo) {
   char aristas[1024];
   char vertices[1024];
   leerGrafo(vertices, aristas);
-  printf("%s\n", vertices);
-  printf("%s\n", aristas);
-  printf("%d\n", contV(vertices));
   grafo->numVertices = contV(vertices);
   grafo->vertices = devolverVertices(vertices, contV(vertices));
   grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristas, esGrafo);

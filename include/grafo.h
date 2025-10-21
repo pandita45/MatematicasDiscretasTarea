@@ -5,6 +5,10 @@
 
 Grafo* crearGrafo(int esGrafo);
 
+int input();
+
+void seleccionarVertices(char *inicio, char *final, Grafo *grafo);
+
 int indiceVertice(Grafo* grafo, char vertice);
 
 char verticePorIndice(Grafo* grafo, int indice);

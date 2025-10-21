@@ -4,8 +4,11 @@
 #include "cola.h"
 #include <stdio.h>
 int main() {
-  Grafo *grafo = crearGrafo(1);
-  Cola *colaRecorridos = empezarDijkstra(grafo, 'a', 'e');
+  char verticeInicio;
+  char verticeFinal;
+  Grafo *grafo = crearGrafo(input());
+  seleccionarVertices(&verticeInicio,&verticeFinal,grafo);
+  Cola *colaRecorridos = empezarDijkstra(grafo, verticeInicio, verticeFinal);
   Recorrido* recorrido;
   while ((recorrido = pop(colaRecorridos))) {
     for (int i = 0; i <= recorrido->largo-1; i++) {

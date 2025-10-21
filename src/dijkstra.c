@@ -45,6 +45,10 @@ void encolarVecinosYActualizarDistancias(Dijkstra *d, char verticeInicio,
 
 /// Esta funcion empieza la busqueda del camino mas corto entre 2 vertices
 Cola *empezarDijkstra(Grafo *grafo, char inicio, char fin) {
+  if(inicio == fin){
+    printf("El vertice de inicial y el final son iguales, el camino mas corto es el mismo vertice\n");
+    exit(EXIT_FAILURE);
+  }
   // Si alguno de los vertices de inicio o fin no existe, retornamos NULL
   if (indiceVertice(grafo, inicio) == -1 || indiceVertice(grafo, fin) == -1) {
     return NULL;
