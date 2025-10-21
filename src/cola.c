@@ -1,4 +1,5 @@
 #include "struct.h"
+#include "recorrido.h"
 #include <stdlib.h>
 
 Cola *crearCola() {
@@ -45,7 +46,7 @@ void disposeNodos(Nodo *nodo) {
   if (nodo->siguiente != NULL) {
     disposeNodos(nodo->siguiente);
   }
-  free(nodo->vertice);
+  destruirRecorrido(nodo->vertice);
   free(nodo);
 }
 

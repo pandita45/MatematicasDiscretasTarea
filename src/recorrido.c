@@ -1,12 +1,13 @@
 #include "struct.h"
 #include <stdlib.h>
 /// Permite destruir un recorrido guardado
-void destruirRecorrido(Recorrido *recorrido) {
-  if (recorrido == NULL) {
+
+void destruirRecorrido(Recorrido *r) {
+  if (r == NULL) {
     return;
   }
-  free(recorrido->camino);
-  free(recorrido);
+  free(r->camino);
+  free(r);
 }
 
 char verticeFinal(Recorrido* r){

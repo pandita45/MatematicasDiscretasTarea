@@ -14,4 +14,6 @@ int main() {
     printf("%c",recorrido->camino[recorrido->largo]);
     printf("\n");
   }
+  destruirCola(colaRecorridos);
+  destruirGrafo(grafo);
 }

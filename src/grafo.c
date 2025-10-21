@@ -122,3 +122,12 @@ Grafo *crearGrafo() {
   grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristas, 1);
   return grafo;
 }
+
+void destruirGrafo(Grafo* grafo){
+  free(grafo->vertices);
+  for(int i = 0; i < grafo->numVertices; i++){
+    free(grafo->matrizAdjacencia[i]);
+  }
+  free(grafo->matrizAdjacencia);
+  free(grafo);
+}
