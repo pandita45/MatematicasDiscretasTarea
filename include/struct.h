@@ -11,7 +11,7 @@ typedef struct {
 
 typedef struct {
   int largo;
-  char* camino;
+  char* camino; //largo del arreglo = largo+1
 } Recorrido;
 
 typedef struct{
@@ -20,14 +20,13 @@ typedef struct{
 } Cola;
 
 struct Nodo {
-  char vertice;
+  Recorrido* vertice;
   Nodo* siguiente;
 };
 
 typedef struct {
-  Recorrido* distancias;
-  char* visitado; //se inicializa en 0
-  Cola nodoSiguiente; //hay que hacer la cola
+  int* distancias;
+  Cola* cola; //hay que hacer la cola
   Grafo* grafo;
 } Dijkstra;
 

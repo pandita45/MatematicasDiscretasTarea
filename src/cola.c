@@ -7,12 +7,14 @@ Cola *crearCola() {
   cola->atras = NULL;
   return cola;
 }
-
-char pop(Cola *queue) {
+//en la cola guardemos los recorridos, y obtenemos el vertice final 
+//con una funcion
+//asi tenemos el vertice, y el camino que hicimos para llegar a el
+Recorrido* pop(Cola *queue) {
   if (queue->cabeza == NULL) {
-    return '\0';
+    return NULL;
   }
-  char vertice = queue->cabeza->vertice;
+  Recorrido* vertice = queue->cabeza->vertice;
   Nodo *popped = queue->cabeza;
   if (queue->cabeza == queue->atras) {
     queue->atras = NULL;
@@ -22,7 +24,10 @@ char pop(Cola *queue) {
   return vertice;
 }
 
-char push(Cola *queue, char vertice) {
+Recorrido* peek(Cola *queue){
+  return queue->cabeza->vertice;
+}
+Recorrido* push(Cola *queue, Recorrido* vertice) {
   Nodo *nuevoAtras = malloc(sizeof(Nodo));
   nuevoAtras->vertice = vertice;
   nuevoAtras->siguiente = NULL;
@@ -40,6 +45,7 @@ void disposeNodos(Nodo *nodo) {
   if (nodo->siguiente != NULL) {
     disposeNodos(nodo->siguiente);
   }
+  free(nodo->vertice);
   free(nodo);
 }
 

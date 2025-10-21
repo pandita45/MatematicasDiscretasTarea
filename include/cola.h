@@ -4,10 +4,11 @@
 
 Cola *crearCola();
 
-char pop(Cola *queue);
+Recorrido *pop(Cola *queue);
 
-char push(Cola *queue, char vertice);
+Recorrido *push(Cola *queue, Recorrido *vertice);
 
+Recorrido *peek(Cola *queue);
 void destruirCola(Cola *cola);
 
 #endif

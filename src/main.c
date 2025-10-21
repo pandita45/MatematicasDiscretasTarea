@@ -1,36 +1,11 @@
-#include <stdio.h>
-#include "struct.h"
-#include "cola.h"
+#include "dijkstra.h"
 #include "grafo.h"
-int main(){
-  /*
-  Cola *cola = crearCola();
-  push(cola, 'a');
-  push(cola, 'b');
-  push(cola, 'c');
-  push(cola, 'd');
-  push(cola, 'e');
-  push(cola, 'f');
-  push(cola, 'g');
-  //char **matriz = {{0, 1, 1},
-  //                 {1, 0, 1},
-  //                 {1, 1, 0}};
-  //Grafo grafo = crearGrafo(numV, vertices,matriz);
-  /*
-  for (int i = 0; i < 7; i++)
-  {
-    printf("%c\n", pop(cola));
+#include "struct.h"
+#include <stdio.h>
+int main() {
+  Grafo *grafo = crearGrafo();
+  Recorrido *recorrido = empezarDijkstra(grafo, 'a', 'e');
+  for (int i = 0; i <= recorrido->largo; i++) {
+    printf("%c\n", recorrido->camino[i]);
   }
-  destruirCola(cola);
-  */
-  Grafo grafo;
-  crearGrafo(&grafo);
-  for(int i = 0; i< grafo.numVertices; i++){
-    for(int j = 0; j< grafo.numVertices; j++){
-      printf("%d    ", grafo.matrizAdjacencia[i][j]);
-    }
-    printf("\n");
-  }
-  
 }
-
