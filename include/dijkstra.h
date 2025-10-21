@@ -2,5 +2,5 @@
 #define DIJKSTRA_H
 
 #include "struct.h"
-Recorrido* empezarDijkstra(Grafo* grafo, char inicio, char fin);
+Cola *empezarDijkstra(Grafo *grafo, char inicio, char fin);
 #endif
