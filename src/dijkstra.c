@@ -3,7 +3,7 @@
 #include "grafo.h"
 #include "struct.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 /// Esta funcion toma un camino hacia un vertice, y encola a los hijos para que
 /// sean procesados por el algoritmo
 void encolarVecinosYActualizarDistancias(Dijkstra *d, char verticeInicio,
@@ -112,3 +112,4 @@ Cola *empezarDijkstra(Grafo *grafo, char inicio, char fin) {
   free(d.distancias);
   return caminoFinal;
 }
+

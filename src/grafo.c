@@ -2,76 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
-int input(){
-    int tipoGrafo;
-     printf("Elija el tipo de estructura a utilizar seleccionando el valor numerico correspondiente\n");
-     printf("1 - Grafo\n");
-     printf("2 - Digrafo\n");
-    do{
-      scanf("%d", &tipoGrafo);
-  
-      if(tipoGrafo != 1 && tipoGrafo != 2){
-	printf("Ingrese uno de los valores numericos correspondientes\n");
-      }
-    } while(tipoGrafo != 1 && tipoGrafo != 2);
-  return tipoGrafo;
-}
-
-void seleccionarVertices(char *inicio, char *final, Grafo *grafo){
-  char auxInicio;
-  char auxFinal;
-  int valido = 0 ;
-  printf("Seleccione uno de los vertices de inicio disponibles:\n");
-  for(int i = 0; i<grafo->numVertices; i++){
-    printf("%c ", grafo->vertices[i]);
-  }
-  printf("\n");
-  while(1){
-    valido = 0;
-    scanf(" %c",&auxInicio);
-    for(int i = 0; i<grafo->numVertices; i++){
-      if(auxInicio == grafo->vertices[i]){
-	valido = 1;
-	break;
-      }
-    }
-    if(valido){
-      *inicio = auxInicio;
-      break;
-    }
-    else{
-      printf("Ingrese un vertice valido\n");
-    }
-  }
-  printf("Seleccione uno de los vertices de destino disponibles:\n");
-  for(int i = 0; i<grafo->numVertices; i++){
-    printf("%c ", grafo->vertices[i]);
-  }
-  printf("\n");
-  
-  while(1){
-    valido = 0;
-    scanf(" %c",&auxFinal);
-    for(int i = 0; i<grafo->numVertices; i++){
-      if(auxFinal == grafo->vertices[i]){
-	valido = 1;
-	break;
-      }
-    }
-    if(valido){
-      *final = auxFinal;
-      break;
-    }
-    else{
-      printf("Ingrese un vertice valido\n");
-    }
-  
-  }
-  
-}
-
-  
 
 void leerGrafo(char *source, char *dest) {
   char linea[1024];
@@ -113,6 +43,7 @@ void leerGrafo(char *source, char *dest) {
 
   fclose(p);
 }
+
 int contV(char *vertices) {
   int cont = 1;
   if (strlen(vertices) == 0) {
@@ -127,8 +58,8 @@ int contV(char *vertices) {
 }
 
 char *devolverVertices(char *linea, int numV) {
-
-  char *finalVertices = malloc(sizeof(char) * numV);
+  // +1 para el terminador nulo
+  char *finalVertices = malloc(sizeof(char) * (numV + 1));
   int contador = 0;
 
   for (int i = 0; i < strlen(linea); i++) {
@@ -137,13 +68,12 @@ char *devolverVertices(char *linea, int numV) {
       contador++;
     }
   }
+  finalVertices[contador] = '\0';
   return finalVertices;
 }
 
 int indiceVertice(Grafo *grafo, char vertice) {
-
   for (int i = 0; i < grafo->numVertices; i++) {
-
     if (grafo->vertices[i] == vertice) {
       return i;
     }
@@ -151,52 +81,90 @@ int indiceVertice(Grafo *grafo, char vertice) {
   return -1;
 }
 
-char verticePorIndice(Grafo* grafo, int indice){
-  if(indice < 0 || indice >= grafo->numVertices){
+char verticePorIndice(Grafo *grafo, int indice) {
+  if (indice < 0 || indice >= grafo->numVertices) {
     return -1;
   }
   return grafo->vertices[indice];
 }
 
 char **crearMatrizAdjacencia(Grafo *grafo, char *aristas, int esGrafo) {
-  char **matrizAdjacencia = malloc(sizeof(char *) * grafo->numVertices);
-
-  for (int i = 0; i < grafo->numVertices; i++) {
-    matrizAdjacencia[i] = malloc(sizeof(char) * grafo->numVertices);
-    for (int j = 0; j < grafo->numVertices; j++) {
-      matrizAdjacencia[i][j] = 0;
-    }
+  // duplicamos para no modificar aristas original
+  char *aristasCopia = strdup(aristas);
+  if (aristasCopia == NULL) {
+    perror("Error al duplicar cadena de aristas");
+    exit(EXIT_FAILURE);
   }
-  char *token = strtok(aristas, ",");
-  do {
-    char* parsed = token;
-    while (*parsed == ' ') parsed++;
-    int inicio = indiceVertice(grafo, parsed[0]);
-    int final = indiceVertice(grafo, parsed[1]);
-    matrizAdjacencia[inicio][final] = 1;
-    if (esGrafo) {
-      matrizAdjacencia[final][inicio] = 1;
+
+  char **matrizAdjacencia = malloc(sizeof(char *) * grafo->numVertices);
+  for (int i = 0; i < grafo->numVertices; i++) {
+    matrizAdjacencia[i] = calloc(grafo->numVertices, sizeof(char));
+  }
+
+  char *token = strtok(aristasCopia, ",");
+  while (token != NULL) {
+    char *parsed = token;
+    while (*parsed == ' ')
+      parsed++;
+
+    if (strlen(parsed) >= 2) {
+      int inicio = indiceVertice(grafo, parsed[0]);
+      int final = indiceVertice(grafo, parsed[1]);
+
+      if (inicio != -1 && final != -1) {
+        if (esGrafo) {
+          matrizAdjacencia[inicio][final] = 1;
+          matrizAdjacencia[final][inicio] = 1;
+        } else {
+          if (rand() % 2)
+            matrizAdjacencia[inicio][final] = 1;
+          else
+            matrizAdjacencia[final][inicio] = 1;
+        }
+      }
     }
-  } while ((token = strtok(NULL, ",")));
+    token = strtok(NULL, ",");
+  }
+
+  free(aristasCopia);
   return matrizAdjacencia;
 }
 
-Grafo *crearGrafo(int esGrafo) {
+Grafo **crearGrafo() {
   Grafo *grafo = malloc(sizeof(Grafo));
+  Grafo **grafos = malloc(5 * sizeof(Grafo *));
   char aristas[1024];
   char vertices[1024];
+
   leerGrafo(vertices, aristas);
+
   grafo->numVertices = contV(vertices);
   grafo->vertices = devolverVertices(vertices, contV(vertices));
-  grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristas, esGrafo);
-  return grafo;
+
+  char aristascpy[1024];
+  strcpy(aristascpy, aristas);
+
+  grafo->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristas, 1);
+  grafos[0] = grafo;
+
+  for (int i = 1; i < 5; i++) {
+    grafos[i] = malloc(sizeof(Grafo));
+    grafos[i]->numVertices = grafo->numVertices;
+    grafos[i]->vertices = grafo->vertices;
+
+    grafos[i]->matrizAdjacencia = crearMatrizAdjacencia(grafo, aristascpy, 0);
+  }
+
+  return grafos;
 }
 
-void destruirGrafo(Grafo* grafo){
+void destruirGrafo(Grafo *grafo) {
   free(grafo->vertices);
-  for(int i = 0; i < grafo->numVertices; i++){
+  for (int i = 0; i < grafo->numVertices; i++) {
     free(grafo->matrizAdjacencia[i]);
   }
   free(grafo->matrizAdjacencia);
   free(grafo);
 }
+
+

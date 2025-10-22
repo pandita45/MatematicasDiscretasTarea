@@ -3,9 +3,8 @@
 
 #include "struct.h"
 
-Grafo* crearGrafo(int esGrafo);
+Grafo** crearGrafo();
 
-int input();
 
 void seleccionarVertices(char *inicio, char *final, Grafo *grafo);
 
