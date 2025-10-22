@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-void leerGrafo(char *source, char *dest) {
+void leerGrafo(char *source, char *dest, char* filepath) {
   char linea[1024];
   char *pc = linea;
   int inicio = 0;
   int final = 0;
   int j = 0, k = 0;
-  FILE *p = fopen("src/grafo1.txt", "r");
+  FILE *p = fopen(filepath, "r");
   if (p == NULL) {
     perror("No se pudo abrir correctamente el archivo\n");
     exit(EXIT_FAILURE);
@@ -130,13 +130,13 @@ char **crearMatrizAdjacencia(Grafo *grafo, char *aristas, int esGrafo) {
   return matrizAdjacencia;
 }
 
-Grafo **crearGrafo() {
+Grafo **crearGrafo(char* filepath) {
   Grafo *grafo = malloc(sizeof(Grafo));
   Grafo **grafos = malloc(5 * sizeof(Grafo *));
   char aristas[1024];
   char vertices[1024];
 
-  leerGrafo(vertices, aristas);
+  leerGrafo(vertices, aristas, filepath);
 
   grafo->numVertices = contV(vertices);
   grafo->vertices = devolverVertices(vertices, contV(vertices));

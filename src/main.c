@@ -6,8 +6,13 @@
 #include <stdlib.h>
 
 void printMatrizAdjacencia(Grafo* grafo) {
-  printf("Esta es la matriz de adjacencia de esta orientación\n");
+  printf("Esta es la matriz de adjacencia de esta orientación\n  ");
+  for(int i = 0; i < grafo->numVertices;i++){
+    printf("%c ", grafo->vertices[i]);
+  }
+  printf("\n");
   for (int i = 0; i < grafo->numVertices; i++) {
+    printf("%c ",grafo->vertices[i]);
     for (int j = 0; j < grafo->numVertices; j++) {
       printf("%d ", grafo->matrizAdjacencia[i][j]);
     }
@@ -16,9 +21,10 @@ void printMatrizAdjacencia(Grafo* grafo) {
 }
 
 int main(int argc, char **argv) {
-  char verticeInicio = 'a';
-  char verticeFinal = 'b'; 
-  Grafo **grafo = crearGrafo();
+  char verticeInicio = argv[1][0];
+  char verticeFinal = argv[2][0];
+  char* grafoTexto = argv[3];
+  Grafo **grafo = crearGrafo(grafoTexto);
   Cola **colaRecorridos = malloc(5 * sizeof(Cola*));
   
   for (int i = 0; i < 5; i++) {
@@ -31,12 +37,11 @@ int main(int argc, char **argv) {
     }
     printMatrizAdjacencia(grafo[i]);
 
-    if (!colaRecorridos[i]) {
-      printf("No se encontro un camino entre los vertices %c y %c en este grafo/digrafo\n", verticeInicio, verticeFinal);
-      continue;
-    }
-
     Recorrido *recorrido = pop(colaRecorridos[i]);
+
+    if(recorrido == NULL){
+      printf("No se encontro un camino entre %c y %c\n\n", verticeInicio, verticeFinal);
+    }
     while (recorrido != NULL) {
       for (int j = 0; j < recorrido->largo; j++) {
         printf("%c->", recorrido->camino[j]);
