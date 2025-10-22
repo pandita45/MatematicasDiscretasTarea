@@ -26,5 +26,10 @@ make
 ```
 ## Ejecucion
 ```bash
-./matematicas (Argumentos)
+Ejemplo de compilacion
+./matematicas a b src/planar.txt
+Donde "a" es el vertice de inicio y "b" el vertice de destino
+El tercer argumento es la ruta del grafo guardado en forma de txt
+Se debe respetar la ruta y se puede elegir entre, planar.txt , euleriano.txt y arbol.txt
+Los cuales contienen los diferentes tipos de grados a los que se les puede aplicar el algoritmo
 ```
