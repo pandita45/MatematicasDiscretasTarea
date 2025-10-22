@@ -26,7 +26,7 @@ make
 ```
 ## Ejecucion
 ```bash
-Ejemplo de compilacion
+Ejemplo de ejecucion
 ./matematicas a b src/planar.txt
 Donde "a" es el vertice de inicio y "b" el vertice de destino
 El tercer argumento es la ruta del grafo guardado en forma de txt
