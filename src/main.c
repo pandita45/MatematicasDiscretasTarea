@@ -21,6 +21,7 @@ void printMatrizAdjacencia(Grafo* grafo) {
 }
 
 int main(int argc, char **argv) {
+  
   char verticeInicio = argv[1][0];
   char verticeFinal = argv[2][0];
   char* grafoTexto = argv[3];
@@ -29,6 +30,10 @@ int main(int argc, char **argv) {
   
   for (int i = 0; i < 5; i++) {
     colaRecorridos[i] = empezarDijkstra(grafo[i], verticeInicio, verticeFinal);
+    if(colaRecorridos[i] == NULL){
+      printf("Alguno de los vertices introducidos, no existe, verifique los parametros de entrada\n");
+      exit(EXIT_FAILURE);
+    }
     
     if (i == 0) {
       printf("Se esta ejecutando el algoritmo en el grafo no dirigido\n");
