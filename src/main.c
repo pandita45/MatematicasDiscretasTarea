@@ -6,13 +6,14 @@
 #include <stdlib.h>
 
 void printMatrizAdjacencia(Grafo* grafo) {
-  printf("Esta es la matriz de adjacencia de esta orientación\n  ");
+  printf("La matriz de adjacencia correspondiente es:\n");
+  printf("  ");
   for(int i = 0; i < grafo->numVertices;i++){
-    printf("%c ", grafo->vertices[i]);
+    printf("\033[1;34m%c\033[0m ", grafo->vertices[i]);
   }
   printf("\n");
   for (int i = 0; i < grafo->numVertices; i++) {
-    printf("%c ",grafo->vertices[i]);
+    printf("\033[1;34m%c\033[0m ",grafo->vertices[i]);
     for (int j = 0; j < grafo->numVertices; j++) {
       printf("%d ", grafo->matrizAdjacencia[i][j]);
     }
@@ -21,6 +22,10 @@ void printMatrizAdjacencia(Grafo* grafo) {
 }
 
 int main(int argc, char **argv) {
+  if(argc < 4){
+    printf("Error, ejecute nuevamente introduciendo la cantidad de parametros necesaria\n");
+    exit(EXIT_FAILURE);
+  }
   
   char verticeInicio = argv[1][0];
   char verticeFinal = argv[2][0];
@@ -45,15 +50,17 @@ int main(int argc, char **argv) {
     Recorrido *recorrido = pop(colaRecorridos[i]);
 
     if(recorrido == NULL){
-      printf("No se encontro un camino entre %c y %c\n\n", verticeInicio, verticeFinal);
+      printf("No se encontro un camino entre %c y %c\n", verticeInicio, verticeFinal);
     }
     while (recorrido != NULL) {
+      printf("El camino encontrado es:\n");
       for (int j = 0; j < recorrido->largo; j++) {
         printf("%c->", recorrido->camino[j]);
       }
       printf("%c\n", recorrido->camino[recorrido->largo]);
       recorrido = pop(colaRecorridos[i]);
     }
+    printf("\n");
 
     destruirCola(colaRecorridos[i]);
   }
