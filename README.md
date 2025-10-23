@@ -17,7 +17,7 @@ sudo apt install build-essential cmake git
 git clone https://github.com/pandita45/MatematicasDiscretasTarea.git
 cd MatematicasDiscretasTarea
 # Compilar con CMake
-CMake . 
+cmake . 
 make
 ```
 ## Ejecucion
