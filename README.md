@@ -23,7 +23,10 @@ make
 ## Ejecucion
 ```bash
 ./matematicas (Vertice A) (Vertice B) (Archivo.txt)
+Donde 'A' es el vertice de inicio y 'B' el de destino, para el tercer parametro se puede seleccionar
+entre los distintos tipos de grafos
+planar.txt, arbol.txt, euleriano.txt
 
-#Ej.
+#Ejemplo de ejecucion
 ./matematicas a f src/planar.txt
 ```
